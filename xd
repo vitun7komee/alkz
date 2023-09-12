@@ -1,0 +1,76 @@
+   #include <iostream> 
+      #include <string> 
+      #include <vector> 
+       
+      using std::string; 
+      using std::vector; 
+       
+      string res; 
+      int ressize = 0; 
+       
+      vector<string> cur; 
+       
+      bool* used; 
+       
+      void rec(const vector<string>& vec) { 
+       
+       for (int i = 0; i < vec.size(); i++) 
+       { 
+        if (!used[i]) 
+        { 
+         if (cur.size() == 0) { 
+          cur.push_back(vec[i]); 
+          used[i] = true; 
+           
+          rec(vec); 
+       
+          cur.pop_back(); 
+          used[i] = false; 
+         } 
+         else 
+         if (vec[i][0] == cur[cur.size() - 1][cur[cur.size() - 1].size() - 1]) { 
+          cur.push_back(vec[i]); 
+          used[i] = true; 
+       
+          rec(vec); 
+       
+          cur.pop_back(); 
+          used[i] = false; 
+         } 
+        } 
+       } 
+       
+       int size = 0; 
+       std::string pr; 
+       for (auto i : cur) { 
+        size += i.size(); 
+       } 
+       
+       if (size > ressize) 
+       { 
+        ressize = size; 
+        res.clear(); 
+        for (auto i : cur) 
+         res += i + " "; 
+       } 
+      } 
+       
+      int main() { 
+       vector<int> nums; 
+       
+       int inp = 0; 
+       
+       while (std::cin » inp) 
+        nums.push_back(inp); 
+       
+       vector<string> strs; 
+       used = new bool[nums.size()] { false }; 
+       
+       for (int i : nums) 
+        strs.push_back(std::to_string(i)); 
+       
+       rec(strs); 
+        
+       std::cout « res; 
+       delete[] used; 
+      }
