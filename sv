@@ -1,3 +1,5 @@
+    if (curL > maxL)
+    {
         maxL = curL;
         maxVec = curVec;
     }
